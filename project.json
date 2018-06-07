@@ -1,0 +1,36 @@
+{
+"version":1,
+"name":"Essential C++ API",
+"build_commands": {
+	"CompileCC++" : {
+		"action":"compile",
+		"args":["-fms-extensions", "-fms-compatibility", "-fms-compatibility-version=19.10.25017", "-x", "c++", "-std=c++14", "-fdelayed-template-parsing","-fcxx-exceptions","-fexceptions", "-D", "_CRT_SECURE_NO_WARNINGS"],
+		"sys_include_dir":["ucrt", "msvc"]
+	},
+	"MakeLib" : {
+		"action":"link",
+		"args":["/lib"]
+	},
+	"MakeExe" : {
+		"action":"link",
+		"args":["/defaultlib:msvcrt.lib", "/subsystem:Windows", "User32.lib", "Gdi32.lib"]
+	},
+	"InterpretCC++" : {
+		"action":"interpret",
+		"args":["-std=c++14","-fdelayed-template-parsing", "-w", "-D", "_DEVMAX_INTERPRETER_"],
+		"unused_args":["-fms-extensions", "-fms-compatibility", "-fms-compatibility-version=19.10.25017", "-x", "c++", "-fcxx-exceptions", "-fexceptions"],
+		"sys_include_dir":["ucrt", "msvc"]
+	}
+},
+"build_definitions": [
+	{
+		"name":"Run test program",
+		"build_steps": [
+			{
+				"command":"InterpretCC++",
+				"inputs":["Main.cpp"]
+			}
+		]
+	}
+]
+}
